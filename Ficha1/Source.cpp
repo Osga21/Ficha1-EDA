@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
+//https://www.calculatorsoup.com/calculators/statistics/number-generator.php para gerar listas
 int main()
 {
 	float *valores;
@@ -78,10 +78,7 @@ int main()
 
 		valFreqrel[i] = (100 * valFreqabs[i]) / nlinhas; //Cálculo Frequencia relativa
 
-		if ((i + 1)*classSize > 99)//Repetido para o gráfico ficar bem formatado com numeros >100
-			printf("\n%d a %d\t %d\t%d%%\t", i*classSize, (i + 1)*classSize, valFreqabs[i], valFreqrel[i]);
-		else
-			printf("\n%d a %d\t\t %d\t%d%%\t",i*classSize,(i+1)*classSize,valFreqabs[i],valFreqrel[i]);
+			printf("\n% 4d a % 4d\t %d\t%d%%\t",i*classSize,(i+1)*classSize,valFreqabs[i],valFreqrel[i]);
 
 		for (int k = 0; k < valFreqrel[i] / 2;k++) {	//Gráfico, cada * ~=2%
 			printf("*");
@@ -105,7 +102,28 @@ int main()
 
 	printf("Media: %g  Desvio Padrao: %.2f",valMed,valStdev);
 
+	printf("\n\n");
 
+	//Grafico Barras
+	int grafRes = 15;
+	int grafMulti = 10;
+	for (int i = grafRes; i > 0; i--) {
+		printf("% 3d%% | ",(i*grafRes)/grafMulti);
+		for (int j = 0; j < nclasses; j++) {
+			if (int(valFreqrel[j])*grafMulti >= i*grafRes) 
+				printf("  ##  ");
+			
+			else printf("      ");
+			}
+		printf("\n");
+		}
+	for (int i = 0; i < nclasses; i++)
+		printf("-------");
+	printf("\n\t");
+	for (int i = 0; i < nclasses; i++)
+		printf(">%d  ", (i + 1)*classSize);
+
+	
 	//Cleanup
 	printf("\n\n\n");
 	system("pause");
