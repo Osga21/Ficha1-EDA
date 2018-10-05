@@ -40,7 +40,8 @@ int main()
 		valSum += valores[i]; //somatorio de valores
 	}
 	
-	int classSize = nlinhas / nclasses;
+	float valAmp = valMax - valMin;
+	int classSize = valAmp/nclasses;
 	int *valFreqabs;
 	int *valFreqrel;
 
@@ -48,20 +49,9 @@ int main()
 	valFreqrel = new int[nclasses];
 	
 
-	//Prompt classes inuteis
-	printf("Dividir classes por valor maximo?(default n)(s/n)");
-	printf("\n(Util se numero de dados for muito superior ao valor maximo)");
-	char maxClass=getchar();
-	switch (maxClass) {
-		case 's':classSize = valMax / nclasses; break;
-		case 'n':;
-		default:;
-	}
-	system("cls");
-
 
 	
-	printf("Intervalo  Freq Abs  Freq Rel  Grafico\n______________________________________\n");	//Cabeçalho tabela
+	printf("Intervalo    Freq Abs  Freq Rel     Grafico\n______________________________________________________\n");	//Cabeçalho tabela
 
 	//Construção tabela
 	char showClass;
@@ -86,7 +76,6 @@ int main()
 	}
 
 	//Estatisticas
-	float valAmp = valMax - valMin;
 	float valMed = valSum / nlinhas;
 
 	printf("\n\n# de classes: %d  # de linhas: %d", nclasses, nlinhas);
@@ -107,23 +96,31 @@ int main()
 	//Grafico Barras
 	int grafRes = 15;
 	int grafMulti = 10;
-	for (int i = grafRes; i > 0; i--) {
-		printf("% 3d%% | ",(i*grafRes)/grafMulti);
-		for (int j = 0; j < nclasses; j++) {
-			if (int(valFreqrel[j])*grafMulti >= i*grafRes) 
-				printf("  ##  ");
-			
-			else printf("      ");
-			}
-		printf("\n");
-		}
-	for (int i = 0; i < nclasses; i++)
-		printf("-------");
-	printf("\n\t");
-	for (int i = 0; i < nclasses; i++)
-		printf(">%d  ", (i + 1)*classSize);
 
+	bool grafQuit = false;
 	
+	while (!grafQuit) {
+		for (int i = grafRes; i > 0; i--) {
+
+			printf("% 3d%% | ", (i*grafRes) / grafMulti); //Legenda y+eixo y
+
+			for (int j = 0; j < nclasses; j++) {
+				if (int(valFreqrel[j])*grafMulti >= i * grafRes)
+					printf("  ##  ");
+
+				else printf("      ");
+			}
+			printf("\n");
+		}
+		for (int i = 0; i < nclasses; i++)
+			printf("-------");
+		printf("\n\t");		//eixo x
+		for (int i = 0; i < nclasses; i++) //Legenda x
+			printf(">%d  ", (i + 1)*classSize);
+		printf("\n");
+	}
+	
+
 	//Cleanup
 	printf("\n\n\n");
 	system("pause");
