@@ -111,4 +111,6 @@ int main()
 	system("pause");
 	delete[] valores; 
 	delete[] valFreqabs;
+	delete[] valFreqrel;
+
 }
