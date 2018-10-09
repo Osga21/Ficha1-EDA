@@ -68,7 +68,7 @@ int main()
 
 		valFreqrel[i] = (100 * valFreqabs[i]) / nlinhas; //Cálculo Frequencia relativa
 
-			printf("\n% 4d a % 4d\t %d\t%d%%\t",i*classSize,(i+1)*classSize,valFreqabs[i],valFreqrel[i]);
+		printf("\n% 4d a % 4d\t %d\t%d%%\t",i*classSize,(i+1)*classSize,valFreqabs[i],valFreqrel[i]);
 
 		for (int k = 0; k < valFreqrel[i] / 2;k++) {	//Gráfico, cada * ~=2%
 			printf("*");
@@ -97,28 +97,22 @@ int main()
 	int grafRes = 15;
 	int grafMulti = 10;
 
-	bool grafQuit = false;
-	
-	while (!grafQuit) {
-		for (int i = grafRes; i > 0; i--) {
-
-			printf("% 3d%% | ", (i*grafRes) / grafMulti); //Legenda y+eixo y
-
-			for (int j = 0; j < nclasses; j++) {
-				if (int(valFreqrel[j])*grafMulti >= i * grafRes)
-					printf("  ##  ");
-
-				else printf("      ");
-			}
-			printf("\n");
+	for (int i = grafRes; i > 0; i--) {
+		printf("% 3d%% | ", (i*grafRes) / grafMulti); //Legenda y+eixo y
+		for (int j = 0; j < nclasses; j++) {
+			if (int(valFreqrel[j])*grafMulti >= i * grafRes)
+				printf("  ##  ");
+			else printf("      ");
 		}
-		for (int i = 0; i < nclasses; i++)
-			printf("-------");
-		printf("\n\t");		//eixo x
-		for (int i = 0; i < nclasses; i++) //Legenda x
-			printf(">%d  ", (i + 1)*classSize);
 		printf("\n");
 	}
+	for (int i = 0; i < nclasses; i++)
+		printf("-------");
+	printf("\n\t");		//eixo x
+	for (int i = 0; i < nclasses; i++) //Legenda x
+		printf(">%d  ", (i + 1)*classSize);
+	printf("\n");
+
 	
 
 	//Cleanup
